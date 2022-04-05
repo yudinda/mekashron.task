@@ -96,7 +96,7 @@
                 password: document.querySelector('#Password').value
             }
             let post = JSON.stringify(postObj);
-            const url = "https://localhost:44306/Account/Login"
+            const url = "https://api.mekashron.ydnz.ru/Account/Login"
             let xhr = new XMLHttpRequest();
             document.querySelector('#submit').disabled = true;
             xhr.open('POST', url, true);
