@@ -31,6 +31,13 @@ namespace mekashron.backend.Controllers
                 resultModel.Success = true;
                 resultModel.LastName = json["LastName"];
                 resultModel.FirstName = json["FirstName"];
+                resultModel.Company = json["Company"];
+                resultModel.Address = json["Address"];
+                resultModel.City = json["City"];
+                resultModel.Country = json["Country"];
+                resultModel.Zip = json["Zip"];
+                resultModel.Phone = json["Phone"];
+                resultModel.Mobile = json["Mobile"];
             }
             return resultModel;
             

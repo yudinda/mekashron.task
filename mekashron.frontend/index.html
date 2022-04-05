@@ -65,9 +65,14 @@
                                 </div>
                             </div>
                         </div>
-                            <div class="alert alert-success d-none" role="alert" id="success">
-                               
+                        <div id="success" class="d-none">
+                            <div class="alert alert-success mb-4" role="alert" id="alert">
+
                             </div>
+                            <ul id="fields"  class="list-group">
+
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -80,30 +85,41 @@
         </div>
     </footer>
     <script>
+        function AddData(title, val) {
+            if (val) {
+                document.querySelector('#fields').innerHTML += "<li class='list-group-item'><strong>" + title + ":</strong> " + val + "</li>";
+            }
+        }
         function doSubmit() {
             let postObj = {
                 username: document.querySelector('#UserName').value,
                 password: document.querySelector('#Password').value
             }
             let post = JSON.stringify(postObj);
-            const url = "https://api.mekashron.ydnz.ru/Account/Login"
-            let xhr = new XMLHttpRequest()
+            const url = "https://localhost:44306/Account/Login"
+            let xhr = new XMLHttpRequest();
             document.querySelector('#submit').disabled = true;
-            //btn.setAttribute('disabled', true);
-            //btn.classList.add("disabled");
-            xhr.open('POST', url, true)
-            xhr.setRequestHeader('Content-type', 'application/json; charset=UTF-8')
+            xhr.open('POST', url, true);
+            xhr.setRequestHeader('Content-type', 'application/json; charset=UTF-8');
             xhr.send(post);
-
             xhr.onload = function () {
                 document.querySelector('#submit').disabled = false;;
                 if (xhr.status === 200) {
                     let data = JSON.parse(xhr.response);
                     if (data.success) {
                         document.querySelector('#form').classList.add('d-none');
-                        var sc = document.querySelector('#success');
-                        sc.innerHTML = 'Welcome, ' + data.firstName + ' ' + data.lastName + "!";
-                        sc.classList.remove('d-none');
+                        document.querySelector('#alert').innerHTML = 'Welcome, ' + data.firstName + ' ' + data.lastName + "!";
+                        var fd = document.querySelector('#fields');
+                        AddData("First Name", data.firstName);
+                        AddData("Last Name", data.lastName);
+                        AddData("Company", data.company);
+                        AddData("Address", data.address);
+                        AddData("City", data.city);
+                        AddData("Country", data.country);
+                        AddData("Zip", data.zip);
+                        AddData("Phone", data.phone);
+                        AddData("Mobile", data.mobile);
+                        document.querySelector('#success').classList.remove('d-none');
                     }
                     else {
                         var err = document.querySelector('#error');
